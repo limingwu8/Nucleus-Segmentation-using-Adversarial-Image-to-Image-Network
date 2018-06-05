@@ -11,25 +11,6 @@ from dataset import get_train_valid_loader
 from model import netD, netG
 from utils import compute_iou, intersect_index
 
-save_img_id = [
-    '0a7d30b252359a10fd298b638b90cb9ada3acced4e0c0e5a3692013f432ee4e9',
-    '0acd2c223d300ea55d0546797713851e818e5c697d073b7f4091b96ce0f3d2fe',
-    '00ae65c1c6631ae6f2be1a449902976e6eb8483bf6b0740d00530220832c6d3e',
-    '0b0d577159f0d6c266f360f7b8dfde46e16fa665138bf577ec3c6f9c70c0cd1e',
-    '0b2e702f90aee4fff2bc6e4326308d50cf04701082e718d4f831c8959fbcda93',
-    '0bda515e370294ed94efd36bd53782288acacb040c171df2ed97fd691fc9d8fe',
-    '0bf4b144167694b6846d584cf52c458f34f28fcae75328a2a096c8214e01c0d0',
-    '0bf33d3db4282d918ec3da7112d0bf0427d4eafe74b3ee0bb419770eefe8d7d6',
-    '0c2550a23b8a0f29a7575de8c61690d3c31bc897dd5ba66caec201d201a278c2',
-    '0c6507d493bf79b2ba248c5cca3d14df8b67328b89efa5f4a32f97a06a88c92c',
-    '0d2bf916cc8de90d02f4cd4c23ea79b227dbc45d845b4124ffea380c92d34c8c',
-    '0d3640c1f1b80f24e94cc9a5f3e1d9e8db7bf6af7d4aba920265f46cadc25e37',
-    '0ddd8deaf1696db68b00c600601c6a74a0502caaf274222c8367bdc31458ae7e',
-    '0e4c2e2780de7ec4312f0efcd86b07c3738d21df30bb4643659962b4da5505a3',
-    '0e5edb072788c7b1da8829b02a49ba25668b09f7201cf2b70b111fc3b853d14f',
-    '0e21d7b3eea8cdbbed60d51d72f4f8c1974c5d76a8a3893a7d5835c85284132e'
-]
-
 def show_batch(batch):
     batch = batch.data.cpu().numpy()
 
@@ -95,7 +76,7 @@ def train(train_loader, netD, netG, criterion, optimizerG, optimizerD):
                       % (epoch + 1, Opt.epochs, i + 1, len(train_loader), D_loss.data[0], G_loss.data[0]))
 
                 # get generated images
-                idice = intersect_index(save_img_id, sample_batched['img_id'])
+                idice = intersect_index(Opt.save_img_id, sample_batched['img_id'])
                 for j in range(len(idice)):
                     idx = idice[j]
                     save_img[idx[0]] = fake[idx[1]].data.cpu()
