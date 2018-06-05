@@ -21,7 +21,7 @@ class Opt(object):
     results_dir = './images/'
 
     shuffle = True  # shuffle the data set
-    batch_size = 256  # GTX1060 3G Memory
+    batch_size = 128  # GTX1060 3G Memory
     epochs = 1000  # number of epochs to train
     is_train = True  # True for training, False for testing
     save_model = True  # True for saving the model, False for not saving the model
@@ -30,9 +30,9 @@ class Opt(object):
     checkpoint_dir = "./checkpoint"  # dir to save checkpoints
     dtype = torch.cuda.FloatTensor if is_cuda else torch.Tensor  # data type
 
-    ngpu = 2
+    ngpu = 1
     imageSize = 128
-    nc = 1
+    nc = 3
     lr = 0.001
     weight_decay = 0.00001
     betas = (0.9, 0.999)
@@ -62,3 +62,12 @@ def compute_iou(predictions, img_ids, file_name):
         ious.append(iou)
     df = pd.DataFrame({'img_id':img_ids,'iou':ious})
     df.to_csv(file_name, index=False)
+
+
+def intersect_index(a, b):
+    index = []
+    for i in range(len(a)):
+        for j in range(len(b)):
+            if a[i]==b[j]:
+                index.append((i,j))
+    return index
